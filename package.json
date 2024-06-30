@@ -1,0 +1,26 @@
+{
+  "name": "naive-package-manager",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "commander": "^12.1.0",
+    "semver": "^7.6.2",
+    "tar": "^7.4.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "description": "",
+  "jest": {
+    "testMatch": [
+      "**/?(*.)+(test).js"
+    ]
+  }
+}
