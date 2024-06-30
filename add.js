@@ -35,7 +35,7 @@ async function addPackage(pkg, options) {
       `Updated package.json: ${JSON.stringify(packageJson, null, 2)}`
     ); // Debug log
 
-    generateLockFile(packageJson, dependencyGraph);
+    generateLockFile(packageJson, dependencyGraph, options.lockPath);
 
     console.log(`Added ${name}@${versionToUse} to dependencies`);
   } catch (error) {

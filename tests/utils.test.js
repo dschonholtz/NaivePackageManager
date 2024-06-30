@@ -10,6 +10,9 @@ const path = require("path");
 
 jest.mock("axios");
 
+const TEST_DATA_DIR = path.join(__dirname, "test_data");
+const LOCK_FILE_PATH = path.join(TEST_DATA_DIR, "package-lock.json");
+
 test("buildDependencyGraph handles circular dependencies", async () => {
   axios.get.mockImplementation((url) => {
     if (url.includes("A")) {
@@ -67,8 +70,8 @@ test("generateLockFile creates a correct lock file", () => {
     ["lodash", { version: "4.17.21", dependencies: {} }],
   ]);
 
-  generateLockFile(packageJson, dependencyGraph);
-  const lockFile = JSON.parse(fs.readFileSync("package-lock.json", "utf8"));
+  generateLockFile(packageJson, dependencyGraph, LOCK_FILE_PATH);
+  const lockFile = JSON.parse(fs.readFileSync(LOCK_FILE_PATH, "utf8"));
   expect(lockFile.dependencies).toHaveProperty("lodash", "4.17.21");
   expect(lockFile.dependencyGraph).toHaveProperty("lodash");
 });

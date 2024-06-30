@@ -24,6 +24,7 @@ beforeEach(() => {
     PACKAGE_JSON_PATH,
     JSON.stringify({ dependencies: {} }, null, 2)
   );
+  fs.writeFileSync(LOCK_FILE_PATH, JSON.stringify({}, null, 2)); // Add this line to create the lock file
 });
 
 afterEach(() => {
@@ -45,6 +46,9 @@ test("addPackage handles circular dependencies", async () => {
 
   await addPackage("A@1.0.0", { path: PACKAGE_JSON_PATH });
   const packageJson = JSON.parse(fs.readFileSync(PACKAGE_JSON_PATH, "utf8"));
+  const lockFile = JSON.parse(fs.readFileSync(LOCK_FILE_PATH, "utf8")); // Add this line to read the lock file
+
   expect(packageJson.dependencies).toHaveProperty("A", "1.0.0");
   expect(packageJson.dependencies).toHaveProperty("B", "1.0.0");
+  expect(lockFile).toHaveProperty("dependencies"); // Add this line to check the lock file
 });

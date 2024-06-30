@@ -1,6 +1,7 @@
 const axios = require("axios");
 const semver = require("semver");
 const fs = require("fs");
+const path = require("path");
 
 async function buildDependencyGraph(
   name,
@@ -75,7 +76,7 @@ function updatePackageJson(packageJson, name, version, dependencyGraph) {
   }
 }
 
-function generateLockFile(packageJson, dependencyGraph) {
+function generateLockFile(packageJson, dependencyGraph, lockFilePath) {
   const lockFile = {
     name: packageJson.name,
     version: packageJson.version,
@@ -90,8 +91,15 @@ function generateLockFile(packageJson, dependencyGraph) {
       dependencies: info.dependencies,
     };
   }
+  console.log(`Writing lock file to ${lockFilePath}`);
 
-  fs.writeFileSync("package-lock.json", JSON.stringify(lockFile, null, 2));
+  // Ensure the directory exists
+  const dir = path.dirname(lockFilePath);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+
+  fs.writeFileSync(lockFilePath, JSON.stringify(lockFile, null, 2));
 }
 
 async function fetchPackageInfo(name, version) {
