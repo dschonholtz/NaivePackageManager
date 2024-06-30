@@ -52,9 +52,11 @@ From the list of "things you should only attempt to do one of if you are really 
 I am doing lock files (sort of probably not deterministic)
 and circular dependencies.
 
-Dependency conflict resolution: what happens if two dependencies require different versions of another dependency?
-Lock file: How can you make sure that installs are deterministic?
-Caching: It’s a waste of storage and time to be redownloading a package that you’ve already downloaded for another project. How can you save something globally to avoid extra downloads? Are there different levels of efficiency you could achieve?
-Validation: How can you verify that an installation of a package is correct?
-Circular dependencies: What happens if there is a dependency graph like A → B → C → A?
-Fun animations
+
+## Final update:
+Ripped out lock files
+Was getting tripped up by mocks for a while there.... But now simple installs work.
+This isn't anywhere near fully tested. 
+Ideally, I'd spend another 4 hours on this getting the code clean. But it is midnight :)
+
+It was a fun project!
