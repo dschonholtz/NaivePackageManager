@@ -44,9 +44,17 @@ test("addPackage handles circular dependencies", async () => {
     }
   });
 
-  await addPackage("A@1.0.0", { path: PACKAGE_JSON_PATH });
+  await addPackage("A@1.0.0", {
+    path: PACKAGE_JSON_PATH,
+    lockPath: LOCK_FILE_PATH,
+  });
   const packageJson = JSON.parse(fs.readFileSync(PACKAGE_JSON_PATH, "utf8"));
   const lockFile = JSON.parse(fs.readFileSync(LOCK_FILE_PATH, "utf8")); // Add this line to read the lock file
+
+  console.log("packageJson:");
+  console.log(JSON.stringify(packageJson, null, 2));
+  console.log("lockFile:");
+  console.log(JSON.stringify(lockFile, null, 2));
 
   expect(packageJson.dependencies).toHaveProperty("A", "1.0.0");
   expect(packageJson.dependencies).toHaveProperty("B", "1.0.0");

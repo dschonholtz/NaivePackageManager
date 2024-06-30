@@ -61,17 +61,17 @@ function updatePackageJson(packageJson, name, version, dependencyGraph) {
   packageJson.dependencies = packageJson.dependencies || {};
 
   // Preserve the original version specifier if present
-  const versionWithSpecifier = /^[~^]/.test(version) ? version : `^${version}`;
-  packageJson.dependencies[name] = versionWithSpecifier;
+  //   const versionWithSpecifier = /^[~^]/.test(version) ? version : `^${version}`;
+  packageJson.dependencies[name] = version;
 
   // Update other dependencies based on the graph
   for (const [depName, depInfo] of dependencyGraph) {
     if (depName !== name) {
       // Preserve the version specifier for other dependencies as well
-      const depVersion = depInfo.version.startsWith("^")
-        ? depInfo.version
-        : `^${depInfo.version}`;
-      packageJson.dependencies[depName] = depVersion;
+      //   const depVersion = depInfo.version.startsWith("^")
+      //     ? depInfo.version
+      //     : `^${depInfo.version}`;
+      packageJson.dependencies[depName] = depInfo.version;
     }
   }
 }
@@ -106,6 +106,7 @@ async function fetchPackageInfo(name, version) {
   const url = `https://registry.npmjs.org/${name}/${version}`;
   console.log(`Fetching package info from URL: ${url}`);
   const response = await axios.get(url);
+  console.log("Response:", response);
   return response.data;
 }
 

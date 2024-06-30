@@ -34,8 +34,14 @@ async function addPackage(pkg, options) {
     console.log(
       `Updated package.json: ${JSON.stringify(packageJson, null, 2)}`
     ); // Debug log
-
     generateLockFile(packageJson, dependencyGraph, options.lockPath);
+
+    // Write the updated packageJson back to the file system
+    fs.writeFileSync(
+      packageJsonPath,
+      JSON.stringify(packageJson, null, 2),
+      "utf8"
+    );
 
     console.log(`Added ${name}@${versionToUse} to dependencies`);
   } catch (error) {

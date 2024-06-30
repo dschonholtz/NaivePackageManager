@@ -34,7 +34,7 @@ test("buildDependencyGraph handles circular dependencies", async () => {
 test("checkVersionConflicts detects conflicts", () => {
   const dependencyGraph = new Map([
     ["express", { version: "4.17.1", dependencies: {} }],
-    ["body-parser", { version: "1.19.0", dependencies: {} }],
+    ["body-parser", { version: "^1.19.0", dependencies: {} }],
   ]);
   const existingDependencies = {
     express: "^4.17.1",
